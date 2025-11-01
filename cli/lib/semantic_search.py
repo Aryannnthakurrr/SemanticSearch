@@ -1,5 +1,10 @@
 from sentence_transformers import SentenceTransformer
 import numpy as np
+from .search_utils import(
+    CACHE_DIR,
+    load_movies
+)
+import os
 
 
 
@@ -12,7 +17,7 @@ class SemanticSearch:
         self.embeddings = None
         self.documents = None 
         self.document_map = {}
-        
+
 
     def generate_embedding(self, text):
         if not text or text.isspace():
@@ -21,6 +26,41 @@ class SemanticSearch:
         To_encode_list.append(text)
         embedding = self.model.encode(To_encode_list)
         return embedding[0]
+
+    def build_embeddings(self, documents:list[dict]):
+        #populating documents and document map for vector to movie data lookup later
+        self.documents = documents
+        doc_list = []
+        for doc in documents:
+            self.document_map[doc["id"]]= doc
+            doc_list.append(f"{doc['title']}: {doc['description']}")
+        self.embeddings = self.model.encode(doc_list, show_progress_bar=True)
+        os.makedirs(CACHE_DIR, exist_ok=True)
+        np.save(f"{CACHE_DIR}/movie_embeddings.npy", self.embeddings)
+        return self.embeddings
+
+    def load_or_create_embeddings(self, documents):
+        #populating documents and document map for vector to movie data lookup later
+        self.documents = documents
+        doc_list = []
+        for doc in documents:
+            self.document_map[doc["id"]]= doc
+            doc_list.append(f"{doc['title']}: {doc['description']}")
+        #building path to movie_embeddings.npy inside cache
+        path = f"{CACHE_DIR}/movie_embeddings.npy"
+        #checking if the cache already exists
+        if os.path.exists(path):
+            #if exists we just load it to embeddings
+            self.embeddings = np.load(path)
+            #a check for whether the cache is caught up with embeddings
+            if len(self.embeddings) == len(documents):
+                #if it is no need to rebuild
+                return self.embeddings
+        #if it isnt then have to rebuild
+        return self.build_embeddings(documents)
+
+        
+
 
 
         
@@ -38,3 +78,19 @@ def embed_text(text):
     print(f"Text: {text}")
     print(f"First 3 dimensions: {embedding[:3]}")
     print(f"Dimensions: {embedding.shape[0]}")
+
+def verify_embeddings():
+    search = SemanticSearch()
+    documents = load_movies()
+    embeddings = search.load_or_create_embeddings(documents)
+    print(f"Number of docs:   {len(documents)}")
+    print(f"Embeddings shape: {embeddings.shape[0]} vectors in {embeddings.shape[1]} dimensions")
+
+def embed_query_text(query):
+    search = SemanticSearch()
+    embedding = search.generate_embedding(query)
+    print(f"Query: {query}")
+    print(f"First 5 dimensions: {embedding[:5]}")
+    print(f"Shape: {embedding.shape[0]}")
+
+
