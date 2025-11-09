@@ -1,0 +1,83 @@
+{
+  "tfidf": {
+    "space_adventure": {
+      "avg_latency_ms": 462.39540959998067,
+      "min_latency_ms": 342.265619999921,
+      "max_latency_ms": 863.3069470000692,
+      "std_dev_ms": 201.029619398975,
+      "result_count": 5
+    },
+    "animated_family": {
+      "avg_latency_ms": 319.748763199982,
+      "min_latency_ms": 295.57322200003,
+      "max_latency_ms": 359.0090139999802,
+      "std_dev_ms": 24.37662483726745,
+      "result_count": 5
+    },
+    "action_thriller": {
+      "avg_latency_ms": 348.7865395999961,
+      "min_latency_ms": 340.8068919999323,
+      "max_latency_ms": 358.30949000001056,
+      "std_dev_ms": 6.18513137554292,
+      "result_count": 5
+    }
+  },
+  "bm25": {
+    "space_adventure": {
+      "avg_latency_ms": 977.8960813999902,
+      "min_latency_ms": 952.9313730000695,
+      "max_latency_ms": 1048.7241529999665,
+      "std_dev_ms": 36.09127685459026,
+      "result_count": 5
+    },
+    "animated_family": {
+      "avg_latency_ms": 932.5943424000116,
+      "min_latency_ms": 895.0369389999651,
+      "max_latency_ms": 955.6733840000788,
+      "std_dev_ms": 21.511116650689104,
+      "result_count": 5
+    },
+    "action_thriller": {
+      "avg_latency_ms": 950.7460929999752,
+      "min_latency_ms": 932.9139669999904,
+      "max_latency_ms": 976.9376790000024,
+      "std_dev_ms": 15.87522326588173,
+      "result_count": 5
+    }
+  },
+  "semantic": {
+    "space_adventure": {
+      "avg_latency_ms": 84.62537033331803,
+      "min_latency_ms": 33.48527599996487,
+      "max_latency_ms": 186.8504199999279,
+      "std_dev_ms": 72.28402933144118,
+      "result_count": 5
+    },
+    "animated_family": {
+      "avg_latency_ms": 85.61770866670788,
+      "min_latency_ms": 31.95473599998877,
+      "max_latency_ms": 191.5765570000758,
+      "std_dev_ms": 74.92629887052186,
+      "result_count": 5
+    },
+    "action_thriller": {
+      "avg_latency_ms": 34.51053266671048,
+      "min_latency_ms": 33.16942000003564,
+      "max_latency_ms": 35.35097700000733,
+      "std_dev_ms": 0.9584012107209215,
+      "result_count": 5
+    }
+  },
+  "index_build": {
+    "build_time_ms": 23741.137508000065,
+    "index_size_mb": 89.2455062866211,
+    "doc_count": 5000,
+    "unique_terms": 85577
+  },
+  "embedding_generation": {
+    "avg_latency_ms": 78.59707039999648,
+    "min_latency_ms": 4.853446999959488,
+    "max_latency_ms": 372.31838900004277,
+    "embedding_dimension": 384
+  }
+}
